@@ -92,20 +92,31 @@ def append_work_daily_note():
 
     os.makedirs(os.path.dirname(master_journal_note), exist_ok=True)
 
-    if not os.path.exists(master_journal_note):
-        with open(master_journal_note, "w") as f:
-            f.write(f"# Journal for {today}\n\n")
+    # Read journal content
+    if os.path.exists(master_journal_note):
+        with open(master_journal_note, "r") as f:
+            journal_content = f.read()
+    else:
+        journal_content = ""
 
+    # Prepare append content: clean backlink + full content
+    backlink_line = f"[[Work Notes/{today}]]"
     with open(work_daily_note, "r") as src:
         work_content = src.read().strip()
 
-    if work_content:
-        with open(master_journal_note, "a") as dest:
-            dest.write("\n\n## Work Notes\n")
-            dest.write(work_content)
-            print(f"[APPEND] {work_daily_note} → {master_journal_note}")
-    else:
-        print(f"[INFO] Work daily note for today is empty: {work_daily_note}")
+    append_block = f"{backlink_line}\n\n{work_content}\n"
+
+    # Check if already appended
+    if backlink_line in journal_content:
+        print(f"[INFO] Work note already appended for today: {master_journal_note}")
+        return
+
+    # Append to journal
+    with open(master_journal_note, "a") as dest:
+        dest.write("\n\n" + append_block)
+        print(
+            f"[APPEND] {work_daily_note} → {master_journal_note} (backlink + content)"
+        )
 
 
 # === MAIN ===

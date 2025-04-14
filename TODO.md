@@ -1,32 +1,42 @@
+
+✅ Clean, informative, future-proof.
+
+---
+
+## 📄 `TODO.md`
+
+Final cleaned-up version, post-implementation.
+
+```markdown
 # Vaultsync Project — TODO
 
-## 🛠️ Critical Improvements
+## ✅ Completed
 
-- [ ] **Prevent multiple appends of Orbit daily note into Atlas journal**
-  - Deduplicate daily notes
-  - Option: Check if note already contains Orbit note content before appending
-  - Option: Add unique marker in append to detect if already inserted
+- [x] Root path exclusion clean-up ✅
+- [x] Work Daily Note append working ✅
+- [x] Full bidirectional sync operational ✅
+- [x] Exclude `.obsidian/` and hidden files ✅
+- [x] Clean skip logging ✅
+- [x] `.env.template` for repo portability ✅
+- [x] README.md project documentation ✅
 
-## 🚀 Next Improvements
+## 🧩 Future Improvements
 
-- [ ] Optional: Add log rotation (if we later add logging)
-- [ ] Optional: Add environment variable support for date override (for manual backfills)
-- [ ] Optional: Add argument parsing (allow override paths at runtime)
-- [ ] Optional: Systemd timer or cronjob automation
-- [ ] Optional: Add test suite for sync logic
-- [ ] Optional: Prettify terminal output (optional Rich library)
-
-## 🧩 Future Enhancements
-
-- [ ] Obsidian Plugin version (native integration)
-- [ ] Optional UI / log viewer
-- [ ] Optional: Diff-checking before append
+- [ ] Prevent multiple appends of Orbit daily note into Atlas journal
+- [ ] Optional: Log level control (quiet mode / verbose mode)
+- [ ] Optional: Auto-create missing folders (full bulletproofing)
+- [ ] Optional: Argument parsing for manual date overrides
+- [ ] Optional: Systemd timer or cron job for automation
+- [ ] Optional: Obsidian Plugin version for native integration
 - [ ] Optional: Archive completed Orbit notes automatically
+- [ ] Optional: Test suite for sync logic
 
-## ✅ Done
+## 🚀 Ideas
 
-- [x] .env support for vault paths
-- [x] Clean project structure
-- [x] GitHub repository initialised
-- [x] Successful initial sync and append
+- [ ] Optional: Shell alias for fast sync
+- [ ] Optional: Project Makefile improvements (`make install`, `make clean`)
+
+---
+
+*This is a living project — simple by design, extensible by choice.*
 

@@ -37,14 +37,19 @@ EXCLUDED_DIRS = ["Journals", ".obsidian", ".git"]
 
 def should_exclude(path, base_vault):
     rel_path = os.path.relpath(path, base_vault)
+
+    # ✅ Allow base vault root (do not skip, do not log)
+    if rel_path in (".", ""):
+        return False
+
     parts = rel_path.split(os.sep)
 
-    # Exclude hidden files and folders
+    # Exclude hidden files and folders (below root only)
     if parts[0].startswith("."):
         print(f"[SKIP] {path} (hidden)")
         return True
 
-    # Exclude explicitly listed directories
+    # Exclude explicitly listed directories (below root only)
     if parts[0] in EXCLUDED_DIRS:
         print(f"[SKIP] {path} (excluded)")
         return True
@@ -78,7 +83,7 @@ def sync_folder(source_root, target_root, direction):
 
 def append_work_daily_note():
     today = datetime.date.today().strftime("%Y-%m-%d")
-    work_daily_note = os.path.join(WORK_VAULT, "Daily Notes", f"{today}.md")
+    work_daily_note = os.path.join(WORK_VAULT, "Work Notes", f"{today}.md")
     master_journal_note = os.path.join(MASTER_VAULT, "Journals", f"{today}.md")
 
     if not os.path.exists(work_daily_note):
@@ -89,14 +94,14 @@ def append_work_daily_note():
 
     if not os.path.exists(master_journal_note):
         with open(master_journal_note, "w") as f:
-            f.write(f"# Journal for {today}\\n\\n")
+            f.write(f"# Journal for {today}\n\n")
 
     with open(work_daily_note, "r") as src:
         work_content = src.read().strip()
 
     if work_content:
         with open(master_journal_note, "a") as dest:
-            dest.write("\\n\\n## Work Notes\\n")
+            dest.write("\n\n## Work Notes\n")
             dest.write(work_content)
             print(f"[APPEND] {work_daily_note} → {master_journal_note}")
     else:
